@@ -1,0 +1,16 @@
+name: Send Confirmation Notifications
+
+on:
+  schedule:
+    # Este cron job será executado diariamente à meia-noite
+    - cron: '0 13 * * *'  # Executar todos os dias à meia-noite UTC
+
+jobs:
+  send_notifications:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call API to send confirmations
+        run: |
+          curl -X GET "${{ secrets.API_URL }}" \
+          -H "Authorization: ${{ secrets.AUTH_TOKEN }}"
