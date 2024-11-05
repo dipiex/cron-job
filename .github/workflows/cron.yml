@@ -3,7 +3,7 @@ name: Send Confirmation Notifications
 on:
   schedule:
     # Este cron job será executado diariamente à meia-noite
-    - cron: '50 12 * * *'  # Executar todos os dias à meia-noite UTC
+    - cron: '0 15 * * *'  # Executar todos os dias à meia-noite UTC
 
 jobs:
   send_notifications:
