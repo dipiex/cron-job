@@ -2,15 +2,29 @@ name: Send Confirmation Notifications
 
 on:
   schedule:
-    # Este cron job será executado diariamente à meia-noite
-    - cron: '0 15 * * *'  # Executar todos os dias à meia-noite UTC
+    # Executa todos os dias ao meio-dia UTC
+    - cron: '12 12 * * *'
+  workflow_dispatch:  # Permite execução manual para teste
 
 jobs:
   send_notifications:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Log the start of API call
+        run: echo "Starting API call to send confirmation notifications."
+
       - name: Call API to send confirmations
+        env:  # Passa os secrets como variáveis de ambiente
+          URL_CONF_TOMORROW: ${{ secrets.URL_CONF_TOMORROW_2960 }}
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
         run: |
-          curl -X GET "${{ secrets.URL_CONF_TOMORROW_2960 }}" \
-          -H "Authorization: ${{ secrets.AUTH_TOKEN }}"
+          if [ -z "$URL_CONF_TOMORROW" ] || [ -z "$AUTH_TOKEN" ]; then
+            echo "Error: Secrets URL_CONF_TOMORROW_2960 or AUTH_TOKEN are not set."
+            exit 1
+          fi
+          curl -X GET "$URL_CONF_TOMORROW" \
+          -H "Authorization: $AUTH_TOKEN"
+
+      - name: Log completion
+        run: echo "API call completed successfully."
