@@ -12,5 +12,5 @@ jobs:
     steps:
       - name: Call API to send confirmations
         run: |
-          curl -X GET "${{ secrets.URL_TOMORROW_2960 }}" \
+          curl -X GET "${{ secrets.URL_CONF_TOMORROW_2960 }}" \
           -H "Authorization: ${{ secrets.AUTH_TOKEN }}"
