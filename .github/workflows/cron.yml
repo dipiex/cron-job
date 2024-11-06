@@ -3,7 +3,7 @@ name: Send Confirmation Notifications
 on:
   schedule:
     # Executa todos os dias ao meio-dia UTC
-    - cron: '12 12 * * *'
+    - cron: '12 15 * * *'
   workflow_dispatch:  # Permite execução manual para teste
 
 jobs:
