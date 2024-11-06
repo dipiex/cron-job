@@ -3,7 +3,7 @@ name: Send Confirmation Notifications
 on:
   schedule:
     # Executa todos os dias ao meio-dia UTC
-    - cron: '12 15 * * *'
+    - cron: '0 16 * * *'
   workflow_dispatch:  # Permite execução manual para teste
 
 jobs:
@@ -14,17 +14,17 @@ jobs:
       - name: Log the start of API call
         run: echo "Starting API call to send confirmation notifications."
 
-      - name: Call API to send confirmations
-        env:  # Passa os secrets como variáveis de ambiente
-          URL_CONF_TOMORROW: ${{ secrets.URL_CONF_TOMORROW_2960 }}
-          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-        run: |
-          if [ -z "$URL_CONF_TOMORROW" ] || [ -z "$AUTH_TOKEN" ]; then
-            echo "Error: Secrets URL_CONF_TOMORROW_2960 or AUTH_TOKEN are not set."
-            exit 1
-          fi
-          curl -X GET "$URL_CONF_TOMORROW" \
-          -H "Authorization: $AUTH_TOKEN"
+      # - name: Call API to send confirmations
+      #   env:  # Passa os secrets como variáveis de ambiente
+      #     URL_CONF_TOMORROW: ${{ secrets.URL_CONF_TOMORROW_2960 }}
+      #     AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+      #   run: |
+      #     if [ -z "$URL_CONF_TOMORROW" ] || [ -z "$AUTH_TOKEN" ]; then
+      #       echo "Error: Secrets URL_CONF_TOMORROW_2960 or AUTH_TOKEN are not set."
+      #       exit 1
+      #     fi
+      #     curl -X GET "$URL_CONF_TOMORROW" \
+      #     -H "Authorization: $AUTH_TOKEN"
 
       - name: Log completion
         run: echo "API call completed successfully."
